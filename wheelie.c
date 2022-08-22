@@ -37,6 +37,7 @@
 
 #define VENDOR_ID 0x955
 #define TEGRA2_PRODUCT_ID 0x7820
+#define TEGRAAP33_PRODUCT_ID 0x7130
 #define TEGRA33_PRODUCT_ID 0x7330
 #define TEGRA30_PRODUCT_ID 0x7030
 
@@ -157,6 +158,9 @@ int main(int argc, char * const* argv) {
     printf("Waiting for device in APX mode...\n");
     while(device < 0) {
         device = nvusb_detect_device(VENDOR_ID, TEGRA2_PRODUCT_ID, &nvdev);
+        usleep(250000); 
+        if(device >= 0) break;
+        device = nvusb_detect_device(VENDOR_ID, TEGRAAP33_PRODUCT_ID, &nvdev);
         usleep(250000); 
         if(device >= 0) break;
         device = nvusb_detect_device(VENDOR_ID, TEGRA33_PRODUCT_ID, &nvdev);
